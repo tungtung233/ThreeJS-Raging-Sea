@@ -45,6 +45,21 @@ gui
   .step(0.001)
   .name('uBigWavesElevation');
 
+gui
+  .add(waterMaterial.uniforms.uBigWavesFrequency.value, 'x')
+  .min(0)
+  .max(10)
+  .step(0.001)
+  .name('uBigWavesFrequencyX');
+
+gui
+  //this is actually manipulating the Z axis, but since vec2 only has (X,Y), this is the Y value
+  .add(waterMaterial.uniforms.uBigWavesFrequency.value, 'y')
+  .min(0)
+  .max(10)
+  .step(0.001)
+  .name('uBigWavesFrequencyY');
+
 // Mesh
 const water = new THREE.Mesh(waterGeometry, waterMaterial);
 water.rotation.x = -Math.PI * 0.5;
