@@ -66,6 +66,13 @@ gui
   .step(0.001)
   .name('uBigWavesFrequencyY');
 
+gui
+  .add(waterMaterial.uniforms.uBigWavesSpeed, 'value')
+  .min(0)
+  .max(4)
+  .step(0.001)
+  .name('uBigWavesSpeed');
+
 // Mesh
 const water = new THREE.Mesh(waterGeometry, waterMaterial);
 water.rotation.x = -Math.PI * 0.5;
