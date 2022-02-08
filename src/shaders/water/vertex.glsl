@@ -98,7 +98,7 @@ void main()
                     sin(modelPosition.z * uBigWavesFrequency.y + uTime * uBigWavesSpeed) * 
                     uBigWavesElevation;
 
-  for(float i = 1.0; i <= 3.0; i++) {
+  for(float i = 1.0; i <= 4.0; i++) {
 
     // we are using the same formula 3 times, but using 'i' to control each iteration's elevation and frequency -
     // * the first iteration should generate large and tall waves
