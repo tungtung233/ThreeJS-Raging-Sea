@@ -18,8 +18,10 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
+const backgroundColor = '#1e211f';
+
 // Fog
-const fog = new THREE.Fog('#1e211f', 0.1, 5);
+const fog = new THREE.Fog(backgroundColor, 0.1, 5);
 scene.fog = fog;
 
 /**
@@ -231,6 +233,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(backgroundColor);
 
 /**
  * Animate
