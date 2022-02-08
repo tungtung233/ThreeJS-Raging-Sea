@@ -47,6 +47,19 @@ const waterMaterial = new THREE.ShaderMaterial({
       value: 0.75,
     },
 
+    uSmallWavesElevation: {
+      value: 0.15,
+    },
+    uSmallWavesFrequency: {
+      value: 3,
+    },
+    uSmallWavesSpeed: {
+      value: 0.2,
+    },
+    uSmallWavesIterations: {
+      value: 4,
+    },
+
     uDepthColor: {
       value: new THREE.Color(debugObject.depthColor),
     },
@@ -58,7 +71,7 @@ const waterMaterial = new THREE.ShaderMaterial({
     },
     uColorMultiplier: {
       value: 5,
-    }
+    },
   },
 });
 
