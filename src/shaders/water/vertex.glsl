@@ -98,10 +98,19 @@ void main()
                     sin(modelPosition.z * uBigWavesFrequency.y + uTime * uBigWavesSpeed) * 
                     uBigWavesElevation;
 
-  elevation -= abs(cnoise(vec3(
-    modelPosition.xz * 3.0,  // the 'small' waves were the same size as the big waves, had to increase their frequency
-    uTime * 0.2)) // since the small waves' elevation was dependent on the elapsed time, it was moving way too quickly
-    * 0.15); // the small waves are too high
+  for(float i = 1.0; i <= 3.0; i++) {
+
+    // we are using the same formula 3 times, but using 'i' to control each iteration's elevation and frequency -
+    // * the first iteration should generate large and tall waves
+    // * the last/third iteration should generate small and short waves
+
+    elevation -= abs(cnoise(vec3(
+      modelPosition.xz * 3.0 * i,  // the 'small' waves were the same size as the big waves, had to increase their frequency, then if i is larger, then their frequency is increased
+      uTime * 0.2)) // since the small waves' elevation was dependent on the elapsed time, it was moving way too quickly
+      * 0.15 / i); // the small waves are too high, then further reducing their height based on i
+
+  }
+
   
   modelPosition.y += elevation;
   
