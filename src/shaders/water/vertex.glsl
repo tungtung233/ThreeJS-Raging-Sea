@@ -98,10 +98,10 @@ void main()
                     sin(modelPosition.z * uBigWavesFrequency.y + uTime * uBigWavesSpeed) * 
                     uBigWavesElevation;
 
-  elevation += cnoise(vec3(
+  elevation -= abs(cnoise(vec3(
     modelPosition.xz * 3.0,  // the 'small' waves were the same size as the big waves, had to increase their frequency
     uTime * 0.2)) // since the small waves' elevation was dependent on the elapsed time, it was moving way too quickly
-    * 0.15; // the small waves are too high
+    * 0.15); // the small waves are too high
   
   modelPosition.y += elevation;
   
