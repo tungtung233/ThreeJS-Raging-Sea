@@ -18,6 +18,10 @@ const canvas = document.querySelector('canvas.webgl');
 // Scene
 const scene = new THREE.Scene();
 
+// Fog
+const fog = new THREE.Fog('#1e211f', 0.1, 5);
+scene.fog = fog;
+
 /**
  * Water
  */
@@ -32,6 +36,7 @@ debugObject.surfaceColor = '#9bd8ff';
 const waterMaterial = new THREE.ShaderMaterial({
   vertexShader: waterVertexShader,
   fragmentShader: waterFragmentShader,
+  fog: true,
   uniforms: {
     uTime: {
       value: 0,
@@ -71,6 +76,16 @@ const waterMaterial = new THREE.ShaderMaterial({
     },
     uColorMultiplier: {
       value: 5,
+    },
+
+    fogColor: {
+      value: scene.fog.color,
+    },
+    fogNear: {
+      value: scene.fog.near,
+    },
+    fogFar: {
+      value: scene.fog.far,
     },
   },
 });
