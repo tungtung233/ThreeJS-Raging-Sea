@@ -26,7 +26,7 @@ scene.fog = fog;
  * Water
  */
 // Geometry
-const waterGeometry = new THREE.PlaneGeometry(2, 2, 512, 512);
+const waterGeometry = new THREE.PlaneGeometry(10, 10, 512, 512);
 
 // Color
 debugObject.depthColor = '#186691';
