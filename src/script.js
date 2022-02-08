@@ -219,6 +219,9 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
+controls.enableZoom = false;
+controls.enablePan = false;
+controls.target = new THREE.Vector3(1.25, 1, 1)
 
 /**
  * Renderer
