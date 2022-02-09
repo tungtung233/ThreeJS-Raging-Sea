@@ -31,6 +31,7 @@ loader.load('clouds.png', function (texture) {
     map: texture,
     transparent: true,
     fog: false,
+    opacity: 0.6,
   });
 
   let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
@@ -272,7 +273,7 @@ const tick = () => {
   waterMaterial.uniforms.uTime.value = elapsedTime;
 
   // Update cloud
-  cloudContainer.forEach(cloud => {
+  cloudContainer.forEach((cloud) => {
     cloud.rotation.z -= 0.0015;
   });
 
