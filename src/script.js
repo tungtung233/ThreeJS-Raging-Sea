@@ -281,6 +281,18 @@ const tick = () => {
     cloud.rotation.z -= 0.0015;
   });
 
+  // Update lightning
+  if (Math.random() > 0.93 || lightning.power > 100) {
+    if (lightning.power < 100) {
+      lightning.position.set(
+        Math.random() * 400,
+        30 + Math.random() * 20,
+        Math.random() * 400
+      );
+    }
+    lightning.power = 55 + Math.random() * 185
+  }
+
   // Update controls
   controls.update();
 
