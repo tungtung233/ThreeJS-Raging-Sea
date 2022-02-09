@@ -271,6 +271,11 @@ const tick = () => {
   // Update water
   waterMaterial.uniforms.uTime.value = elapsedTime;
 
+  // Update cloud
+  cloudContainer.forEach(cloud => {
+    cloud.rotation.z -= 0.0015;
+  });
+
   // Update controls
   controls.update();
 
