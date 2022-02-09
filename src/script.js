@@ -209,7 +209,7 @@ scene.add(water);
 const ambient = new THREE.AmbientLight(0x555555);
 scene.add(ambient);
 
-const lightning = new THREE.PointLight(0x062d89, 100, 500, 1.7);
+const lightning = new THREE.PointLight(0x162d61, 100, 500, 1.7);
 lightning.position.set(200, 45, 100); //just a little in front the cloud
 scene.add(lightning);
 
