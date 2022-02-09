@@ -19,6 +19,32 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 const backgroundColor = 0x11111f;
 
+// Textures
+let loader = new THREE.TextureLoader();
+
+// Clouds
+const cloudContainer = [];
+
+loader.load('clouds.png', function (texture) {
+  const cloudGeo = new THREE.PlaneBufferGeometry(500, 500);
+  const cloudMaterial = new THREE.MeshLambertMaterial({
+    map: texture,
+    transparent: true,
+    fog: false,
+  });
+
+  let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
+  cloud.position.set(
+    1,
+    50,
+    1
+  );
+  cloud.rotation.x = Math.PI / 2;
+
+  cloudContainer.push(cloud);
+  scene.add(cloud);
+});
+
 // Fog
 const fog = new THREE.Fog(backgroundColor, 0.1, 5);
 scene.fog = fog;
