@@ -34,11 +34,7 @@ loader.load('clouds.png', function (texture) {
   });
 
   let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
-  cloud.position.set(
-    1,
-    50,
-    1
-  );
+  cloud.position.set(1, 50, 1);
   cloud.rotation.x = Math.PI / 2;
 
   cloudContainer.push(cloud);
@@ -207,6 +203,10 @@ gui
 const water = new THREE.Mesh(waterGeometry, waterMaterial);
 water.rotation.x = -Math.PI * 0.5;
 scene.add(water);
+
+// Lights
+const ambient = new THREE.AmbientLight(0x555555);
+scene.add(ambient);
 
 /**
  * Sizes
