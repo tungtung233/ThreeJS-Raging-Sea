@@ -42,7 +42,7 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Fog
-const fog = new THREE.Fog(backgroundColor, 0.1, 5);
+const fog = new THREE.Fog(backgroundColor, 0.1, 4);
 scene.fog = fog;
 
 /**
