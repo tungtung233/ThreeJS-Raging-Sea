@@ -17,8 +17,7 @@ const canvas = document.querySelector('canvas.webgl');
 
 // Scene
 const scene = new THREE.Scene();
-
-const backgroundColor = '#1e211f';
+const backgroundColor = 0x11111f;
 
 // Fog
 const fog = new THREE.Fog(backgroundColor, 0.1, 5);
@@ -223,7 +222,7 @@ const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
 controls.enableZoom = false;
 controls.enablePan = false;
-controls.target = new THREE.Vector3(1.25, 1, 1)
+controls.target = new THREE.Vector3(1.25, 1, 1);
 
 /**
  * Renderer
