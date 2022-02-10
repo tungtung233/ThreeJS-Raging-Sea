@@ -324,6 +324,22 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(backgroundColor);
 
+// Sounds
+// create an AudioListener and add it to the camera
+const listener = new THREE.AudioListener();
+camera.add(listener);
+
+// create a global audio source
+const sound = new THREE.Audio(listener);
+const rainLoader = new THREE.AudioLoader();
+
+rainLoader.load('sounds/rain.mp3', function (buffer) {
+  sound.setBuffer(buffer);
+  sound.setLoop(true);
+  sound.setVolume(0.1);
+  sound.play();
+});
+
 /**
  * Animate
  */
