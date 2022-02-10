@@ -31,7 +31,7 @@ loader.load('clouds.png', function (texture) {
     map: texture,
     transparent: true,
     fog: false,
-    opacity: 0.6,
+    opacity: 0.9,
   });
 
   let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
