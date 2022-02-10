@@ -311,6 +311,8 @@ controls.enableDamping = true;
 controls.enableZoom = false;
 controls.enablePan = false;
 controls.target = new THREE.Vector3(1.25, 1, 1);
+controls.minPolarAngle = Math.PI * 0.35;
+controls.maxPolarAngle = Math.PI * 0.6;
 
 /**
  * Renderer
