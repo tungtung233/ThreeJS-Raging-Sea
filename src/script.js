@@ -43,24 +43,23 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Rain
-const rainCount = 2000;
-
-const rainDropsCoordinates = [];
-for (let i = 0; i < rainCount; i++) {
+const innerRainCount = 2000;
+const innerRainDropsCoordinates = [];
+for (let i = 0; i < innerRainCount; i++) {
   const x = Math.random() * 20 - 10;
   const y = Math.random() * 50 - 25;
   const z = Math.random() * 20 - 10;
 
-  rainDropsCoordinates.push(x, y, z);
+  innerRainDropsCoordinates.push(x, y, z);
 }
 
-const rainGeo = new THREE.BufferGeometry();
-rainGeo.setAttribute(
+const innerRainGeo = new THREE.BufferGeometry();
+innerRainGeo.setAttribute(
   'position',
-  new THREE.Float32BufferAttribute(rainDropsCoordinates, 3)
+  new THREE.Float32BufferAttribute(innerRainDropsCoordinates, 3)
 );
 
-const rainMaterial = new THREE.PointsMaterial({
+const innerRainMaterial = new THREE.PointsMaterial({
   size: 1.5,
   transparent: true,
   fog: false,
@@ -68,10 +67,37 @@ const rainMaterial = new THREE.PointsMaterial({
   sizeAttenuation: false,
 });
 
-const rain = new THREE.Points(rainGeo, rainMaterial);
-scene.add(rain);
+const innerRain = new THREE.Points(innerRainGeo, innerRainMaterial);
+const innerRainDrops = innerRainGeo.getAttribute('position');
+scene.add(innerRain);
 
-const rainDrops = rainGeo.getAttribute('position');
+const outerRainCount = 2000;
+const outerRainDropsCoordinates = [];
+for (let i = 0; i < outerRainCount; i++) {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 50 - 25;
+  const z = Math.random() * 200 - 100;
+
+  outerRainDropsCoordinates.push(x, y, z);
+}
+
+const outerRainGeo = new THREE.BufferGeometry();
+outerRainGeo.setAttribute(
+  'position',
+  new THREE.Float32BufferAttribute(outerRainDropsCoordinates, 3)
+);
+
+const outerRainMaterial = new THREE.PointsMaterial({
+  size: 0.75,
+  transparent: true,
+  fog: false,
+  color: '#69768a',
+  sizeAttenuation: false,
+});
+
+const outerRain = new THREE.Points(outerRainGeo, outerRainMaterial);
+const outerRainDrops = outerRainGeo.getAttribute('position');
+scene.add(outerRain);
 
 // Fog
 const fog = new THREE.Fog(backgroundColor, 0.1, 4);
@@ -325,8 +351,8 @@ const tick = () => {
   }
 
   // Update rain
-  for (let i = 0; i < rainDrops.count; i++) {
-    let y = rainDrops.getY(i);
+  for (let i = 0; i < innerRainDrops.count; i++) {
+    let y = innerRainDrops.getY(i);
 
     if (y < -10) {
       y = Math.random() * 50 - 5;
@@ -334,9 +360,22 @@ const tick = () => {
       y -= 0.1;
     }
 
-    rainDrops.setY(i, y);
+    innerRainDrops.setY(i, y);
   }
-  rainDrops.needsUpdate = true;
+  innerRainDrops.needsUpdate = true;
+
+  for (let i = 0; i < outerRainDrops.count; i++) {
+    let y = outerRainDrops.getY(i);
+
+    if (y < -30) {
+      y = Math.random() * 50 - 5;
+    } else {
+      y -= 0.5;
+    }
+
+    outerRainDrops.setY(i, y);
+  }
+  outerRainDrops.needsUpdate = true;
 
   // Update controls
   controls.update();
