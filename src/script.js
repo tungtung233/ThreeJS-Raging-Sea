@@ -43,13 +43,13 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Rain
-const rainCount = 1500;
+const rainCount = 2000;
 
 const rainDropsCoordinates = [];
 for (let i = 0; i < rainCount; i++) {
-  const x = Math.random() * 200 - 100;
+  const x = Math.random() * 20 - 10;
   const y = Math.random() * 50 - 25;
-  const z = Math.random() * 200 - 100;
+  const z = Math.random() * 20 - 10;
 
   rainDropsCoordinates.push(x, y, z);
 }
@@ -61,9 +61,11 @@ rainGeo.setAttribute(
 );
 
 const rainMaterial = new THREE.PointsMaterial({
-  size: 0.1,
+  size: 1.5,
   transparent: true,
   fog: false,
+  color: '#69768a',
+  sizeAttenuation: false,
 });
 
 const rain = new THREE.Points(rainGeo, rainMaterial);
@@ -329,7 +331,7 @@ const tick = () => {
     if (y < -10) {
       y = Math.random() * 50 - 5;
     } else {
-      y -= 0.3;
+      y -= 0.1;
     }
 
     rainDrops.setY(i, y);
