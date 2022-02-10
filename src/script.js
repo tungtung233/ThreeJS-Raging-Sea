@@ -341,7 +341,7 @@ const tick = () => {
   });
 
   // Update lightning
-  if (Math.random() > 0.93 || lightning.power > 100) {
+  if (Math.random() > 0.9 || lightning.power > 100) {
     if (lightning.power < 100) {
       lightning.position.set(
         Math.random() * 400,
@@ -349,7 +349,7 @@ const tick = () => {
         Math.random() * 400
       );
     }
-    lightning.power = 55 + Math.random() * 185;
+    lightning.power = 60 + Math.random() * 185;
   }
 
   // Update rain
