@@ -356,10 +356,10 @@ const tick = () => {
   for (let i = 0; i < innerRainDrops.count; i++) {
     let y = innerRainDrops.getY(i);
 
-    if (y < -10) {
+    if (y < -15) {
       y = Math.random() * 50 - 5;
     } else {
-      y -= 0.1;
+      y -= 0.2;
     }
 
     innerRainDrops.setY(i, y);
@@ -372,7 +372,7 @@ const tick = () => {
     if (y < -30) {
       y = Math.random() * 50 - 5;
     } else {
-      y -= 0.5;
+      y -= 1.2;
     }
 
     outerRainDrops.setY(i, y);
