@@ -45,17 +45,20 @@ loader.load('clouds.png', function (texture) {
 // Rain
 const rainCount = 1500;
 
-const rainDrops = [];
+const rainDropsCoordinates = [];
 for (let i = 0; i < rainCount; i++) {
-  const x =     Math.random() * 200 - 100;
-  const y =     Math.random() * 50 - 25;
-  const z =     Math.random() * 200 - 100;
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 50 - 25;
+  const z = Math.random() * 200 - 100;
 
-  rainDrops.push(x, y, z);
+  rainDropsCoordinates.push(x, y, z);
 }
 
 const rainGeo = new THREE.BufferGeometry();
-rainGeo.setAttribute('position', new THREE.Float32BufferAttribute(rainDrops, 3));
+rainGeo.setAttribute(
+  'position',
+  new THREE.Float32BufferAttribute(rainDropsCoordinates, 3)
+);
 
 const rainMaterial = new THREE.PointsMaterial({
   size: 0.1,
@@ -65,6 +68,8 @@ const rainMaterial = new THREE.PointsMaterial({
 
 const rain = new THREE.Points(rainGeo, rainMaterial);
 scene.add(rain);
+
+const rainDrops = rainGeo.getAttribute('position');
 
 // Fog
 const fog = new THREE.Fog(backgroundColor, 0.1, 4);
@@ -316,6 +321,20 @@ const tick = () => {
     }
     lightning.power = 55 + Math.random() * 185;
   }
+
+  // Update rain
+  for (let i = 0; i < rainDrops.count; i++) {
+    let y = rainDrops.getY(i);
+
+    if (y < -10) {
+      y = Math.random() * 50 - 5;
+    } else {
+      y -= 0.3;
+    }
+
+    rainDrops.setY(i, y);
+  }
+  rainDrops.needsUpdate = true;
 
   // Update controls
   controls.update();
