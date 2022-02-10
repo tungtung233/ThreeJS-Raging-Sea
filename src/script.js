@@ -346,6 +346,12 @@ const playThunder1Sound = () => {
   thunder1Sound.play();
 };
 
+const thunder2Sound = new Audio('/sounds/thunder-2.mp3');
+const playThunder2Sound = () => {
+  thunder2Sound.volume = 0.2;
+  thunder2Sound.play();
+};
+
 /**
  * Animate
  */
@@ -375,6 +381,8 @@ const tick = () => {
 
     if (lightning.power > 243) {
       playThunder1Sound();
+    } else if (lightning.power <= 243 && lightning.power > 200) {
+      playThunder2Sound();
     }
   }
 
