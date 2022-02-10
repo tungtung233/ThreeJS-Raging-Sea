@@ -340,6 +340,12 @@ rainLoader.load('sounds/rain.mp3', function (buffer) {
   sound.play();
 });
 
+const thunder1Sound = new Audio('/sounds/thunder-1.mp3');
+const playThunder1Sound = () => {
+  thunder1Sound.volume = 0.2;
+  thunder1Sound.play();
+};
+
 /**
  * Animate
  */
@@ -366,6 +372,10 @@ const tick = () => {
       );
     }
     lightning.power = 60 + Math.random() * 185;
+
+    if (lightning.power > 243) {
+      playThunder1Sound();
+    }
   }
 
   // Update rain
