@@ -337,7 +337,7 @@ const tick = () => {
 
   // Update cloud
   cloudContainer.forEach((cloud) => {
-    cloud.rotation.z -= 0.0015;
+    cloud.rotation.z -= 0.002;
   });
 
   // Update lightning
