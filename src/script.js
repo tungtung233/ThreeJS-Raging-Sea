@@ -60,7 +60,7 @@ innerRainGeo.setAttribute(
 );
 
 const innerRainMaterial = new THREE.PointsMaterial({
-  size: 1.5,
+  size: 1.75,
   transparent: true,
   fog: false,
   color: '#69768a',
@@ -88,7 +88,7 @@ outerRainGeo.setAttribute(
 );
 
 const outerRainMaterial = new THREE.PointsMaterial({
-  size: 0.75,
+  size: 1.25,
   transparent: true,
   fog: false,
   color: '#69768a',
