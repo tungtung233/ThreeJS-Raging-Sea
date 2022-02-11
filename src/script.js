@@ -225,7 +225,7 @@ gui
 gui
   .add(waterMaterial.uniforms.uSmallWavesIterations, 'value')
   .min(0)
-  .max(8)
+  .max(4)
   .step(1)
   .name('uSmallWavesIterations');
 
