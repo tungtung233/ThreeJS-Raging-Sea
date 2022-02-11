@@ -325,6 +325,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(backgroundColor);
 
 // Sounds
+let isMuted = true;
+
 // create an AudioListener and add it to the camera
 const listener = new THREE.AudioListener();
 camera.add(listener);
@@ -337,7 +339,6 @@ rainLoader.load('sounds/rain.mp3', function (buffer) {
   sound.setBuffer(buffer);
   sound.setLoop(true);
   sound.setVolume(0.1);
-  sound.play();
 });
 
 const thunder1Sound = new Audio('/sounds/thunder-1.mp3');
@@ -357,6 +358,21 @@ const playThunder3Sound = () => {
   thunder3Sound.volume = 0.2;
   thunder3Sound.play();
 };
+
+const clickSoundIcon = () => {
+  if (isMuted) {
+    document.getElementById('soundIcon').src = '/unmuted.png';
+    sound.play();
+  } else {
+    document.getElementById('soundIcon').src = '/muted.png';
+    sound.pause();
+  }
+  isMuted = !isMuted;
+};
+
+const soundIcon = document
+  .getElementById('soundIcon')
+  .addEventListener('click', clickSoundIcon);
 
 /**
  * Animate
