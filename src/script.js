@@ -43,12 +43,12 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Rain
-const innerRainCount = 2000;
+const innerRainCount = 3000;
 const innerRainDropsCoordinates = [];
 for (let i = 0; i < innerRainCount; i++) {
-  const x = Math.random() * 20 - 10;
+  const x = Math.random() * 10 - 5;
   const y = Math.random() * 50 - 25;
-  const z = Math.random() * 20 - 10;
+  const z = Math.random() * 10 - 5;
 
   innerRainDropsCoordinates.push(x, y, z);
 }
@@ -71,12 +71,12 @@ const innerRain = new THREE.Points(innerRainGeo, innerRainMaterial);
 const innerRainDrops = innerRainGeo.getAttribute('position');
 scene.add(innerRain);
 
-const outerRainCount = 2000;
+const outerRainCount = 1000;
 const outerRainDropsCoordinates = [];
 for (let i = 0; i < outerRainCount; i++) {
-  const x = Math.random() * 200 - 100;
+  const x = Math.random() * 100 - 50;
   const y = Math.random() * 50 - 25;
-  const z = Math.random() * 200 - 100;
+  const z = Math.random() * 100 - 50;
 
   outerRainDropsCoordinates.push(x, y, z);
 }
@@ -439,7 +439,7 @@ const tick = () => {
   for (let i = 0; i < outerRainDrops.count; i++) {
     let y = outerRainDrops.getY(i);
 
-    if (y < -30) {
+    if (y < -50) {
       y = Math.random() * 50 - 5;
     } else {
       y -= 1.5;
