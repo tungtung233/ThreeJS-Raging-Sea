@@ -343,20 +343,26 @@ rainLoader.load('sounds/rain.mp3', function (buffer) {
 
 const thunder1Sound = new Audio('/sounds/thunder-1.mp3');
 const playThunder1Sound = () => {
-  thunder1Sound.volume = 0.2;
-  thunder1Sound.play();
+  if (!isMuted) {
+    thunder1Sound.volume = 0.2;
+    thunder1Sound.play();
+  }
 };
 
 const thunder2Sound = new Audio('/sounds/thunder-2.mp3');
 const playThunder2Sound = () => {
-  thunder2Sound.volume = 0.2;
-  thunder2Sound.play();
+  if (!isMuted) {
+    thunder2Sound.volume = 0.2;
+    thunder2Sound.play();
+  }
 };
 
 const thunder3Sound = new Audio('/sounds/thunder-3.mp3');
 const playThunder3Sound = () => {
-  thunder3Sound.volume = 0.2;
-  thunder3Sound.play();
+  if (!isMuted) {
+    thunder3Sound.volume = 0.2;
+    thunder3Sound.play();
+  }
 };
 
 const clickSoundIcon = () => {
@@ -366,6 +372,12 @@ const clickSoundIcon = () => {
   } else {
     document.getElementById('soundIcon').src = '/muted.png';
     sound.pause();
+    thunder1Sound.pause();
+    thunder1Sound.currentTime = 0;
+    thunder2Sound.pause();
+    thunder2Sound.currentTime = 0;
+    thunder3Sound.pause();
+    thunder3Sound.currentTime = 0;
   }
   isMuted = !isMuted;
 };
