@@ -442,7 +442,7 @@ const tick = () => {
     if (y < -30) {
       y = Math.random() * 50 - 5;
     } else {
-      y -= 1.2;
+      y -= 1.5;
     }
 
     outerRainDrops.setY(i, y);
