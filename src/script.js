@@ -49,33 +49,38 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Rain
-const innerRainCount = debugObject.rainFrequency * 0.75;
-const innerRainDropsCoordinates = [];
-for (let i = 0; i < innerRainCount; i++) {
-  const x = Math.random() * 10 - 5;
-  const y = Math.random() * 50 - 25;
-  const z = Math.random() * 10 - 5;
+let innerRainDropsCoordinates, innerRain, innerRainDrops;
+const createInnerRain = (count) => {
+  const innerRainCount = count * 0.75;
+  innerRainDropsCoordinates = [];
+  for (let i = 0; i < innerRainCount; i++) {
+    const x = Math.random() * 10 - 5;
+    const y = Math.random() * 50 - 25;
+    const z = Math.random() * 10 - 5;
 
-  innerRainDropsCoordinates.push(x, y, z);
-}
+    innerRainDropsCoordinates.push(x, y, z);
+  }
+  const innerRainGeo = new THREE.BufferGeometry();
+  innerRainGeo.setAttribute(
+    'position',
+    new THREE.Float32BufferAttribute(innerRainDropsCoordinates, 3)
+  );
 
-const innerRainGeo = new THREE.BufferGeometry();
-innerRainGeo.setAttribute(
-  'position',
-  new THREE.Float32BufferAttribute(innerRainDropsCoordinates, 3)
-);
+  const innerRainMaterial = new THREE.PointsMaterial({
+    size: 1.75,
+    transparent: true,
+    fog: false,
+    color: '#69768a',
+    sizeAttenuation: false,
+  });
 
-const innerRainMaterial = new THREE.PointsMaterial({
-  size: 1.75,
-  transparent: true,
-  fog: false,
-  color: '#69768a',
-  sizeAttenuation: false,
-});
-
-const innerRain = new THREE.Points(innerRainGeo, innerRainMaterial);
-const innerRainDrops = innerRainGeo.getAttribute('position');
-scene.add(innerRain);
+  innerRain = new THREE.Points(innerRainGeo, innerRainMaterial);
+  innerRain.name = 'innerRain';
+  innerRainDrops = innerRainGeo.getAttribute('position');
+  scene.remove(scene.getObjectByName('innerRain'));
+  scene.add(innerRain);
+};
+createInnerRain(debugObject.rainFrequency);
 
 const outerRainCount = debugObject.rainFrequency * 0.25;
 const outerRainDropsCoordinates = [];
@@ -266,6 +271,7 @@ gui
   .step(1000)
   .onChange((total) => {
     debugObject.rainFrequency = total;
+    createInnerRain(debugObject.rainFrequency);
   });
 
 // Mesh
