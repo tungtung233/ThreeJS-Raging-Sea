@@ -13,6 +13,7 @@ const gui = new dat.GUI({ width: 340 });
 const debugObject = {};
 
 debugObject.backgroundColor = '#11111f';
+debugObject.cloudTransparency = 0.9;
 
 // wave color
 debugObject.depthColor = '#186691';
@@ -32,14 +33,15 @@ let loader = new THREE.TextureLoader();
 // Clouds
 const cloudContainer = [];
 
+const cloudGeo = new THREE.PlaneBufferGeometry(500, 500);
+const cloudMaterial = new THREE.MeshLambertMaterial({
+  transparent: true,
+  fog: false,
+  opacity: debugObject.cloudTransparency,
+});
+
 loader.load('clouds.png', function (texture) {
-  const cloudGeo = new THREE.PlaneBufferGeometry(500, 500);
-  const cloudMaterial = new THREE.MeshLambertMaterial({
-    map: texture,
-    transparent: true,
-    fog: false,
-    opacity: 0.9,
-  });
+  cloudMaterial.map = texture;
 
   let cloud = new THREE.Mesh(cloudGeo, cloudMaterial);
   cloud.position.set(1, 50, 1);
@@ -115,7 +117,7 @@ const createOuterRain = (count) => {
   scene.remove(scene.getObjectByName('outerRain'));
   scene.add(outerRain);
 };
-createOuterRain(debugObject.rainFrequency)
+createOuterRain(debugObject.rainFrequency);
 
 // Fog
 let fog = new THREE.Fog(debugObject.backgroundColor, 0.1, 4);
@@ -186,12 +188,19 @@ const waterMaterial = new THREE.ShaderMaterial({
 });
 
 // Debug
+gui.addColor(debugObject, 'backgroundColor').onChange(() => {
+  renderer.setClearColor(debugObject.backgroundColor);
+  fog = new THREE.Fog(debugObject.backgroundColor, 0.1, 4);
+  scene.fog = fog;
+});
+
 gui
-  .addColor(debugObject, 'backgroundColor')
+  .add(debugObject, 'cloudTransparency')
+  .min(0)
+  .max(1)
+  .step(0.01)
   .onChange(() => {
-    renderer.setClearColor(debugObject.backgroundColor);
-    fog = new THREE.Fog(debugObject.backgroundColor, 0.1, 4);
-    scene.fog = fog;
+    cloudMaterial.opacity = debugObject.cloudTransparency;
   });
 
 gui
