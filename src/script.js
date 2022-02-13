@@ -12,7 +12,7 @@ import waterFragmentShader from './shaders/water/fragment.glsl';
 const gui = new dat.GUI({ width: 340 });
 const debugObject = {};
 
-debugObject.rainFrequency = 4000;
+debugObject.rainFrequency = 4;
 
 // wave color
 debugObject.depthColor = '#186691';
@@ -51,7 +51,7 @@ loader.load('clouds.png', function (texture) {
 // Rain
 let innerRainDropsCoordinates, innerRain, innerRainDrops;
 const createInnerRain = (count) => {
-  const innerRainCount = count * 0.75;
+  const innerRainCount = count * 1000 * 0.75;
   innerRainDropsCoordinates = [];
   for (let i = 0; i < innerRainCount; i++) {
     const x = Math.random() * 10 - 5;
@@ -84,7 +84,7 @@ createInnerRain(debugObject.rainFrequency);
 
 let outerRainDropsCoordinates, outerRain, outerRainDrops;
 const createOuterRain = (count) => {
-  const outerRainCount = count * 0.25;
+  const outerRainCount = count * 1000 * 0.25;
   outerRainDropsCoordinates = [];
   for (let i = 0; i < outerRainCount; i++) {
     const x = Math.random() * 100 - 50;
@@ -273,8 +273,8 @@ gui
 gui
   .add(debugObject, 'rainFrequency')
   .min(0)
-  .max(10000)
-  .step(1000)
+  .max(8)
+  .step(1)
   .onChange((total) => {
     debugObject.rainFrequency = total;
     createInnerRain(debugObject.rainFrequency);
