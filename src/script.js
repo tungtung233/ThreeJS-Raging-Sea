@@ -19,6 +19,7 @@ debugObject.cloudTransparency = 0.9;
 debugObject.depthColor = '#186691';
 debugObject.surfaceColor = '#9bd8ff';
 
+debugObject.thunder = true;
 debugObject.rainFrequency = 4;
 
 // Canvas
@@ -288,6 +289,21 @@ gui
   .step(0.001)
   .name('uColorMultiplier');
 
+gui.add(debugObject, 'thunder').onChange((bool) => {
+  if (!bool) {
+    thunder1Sound.pause();
+    thunder1Sound.currentTime = 0;
+    thunder2Sound.pause();
+    thunder2Sound.currentTime = 0;
+    thunder3Sound.pause();
+    thunder3Sound.currentTime = 0;
+
+    scene.remove(scene.getObjectByName('lightning'));
+  } else {
+    scene.add(lightning);
+  }
+});
+
 gui
   .add(debugObject, 'rainFrequency')
   .min(0)
@@ -310,6 +326,7 @@ scene.add(ambient);
 
 const lightning = new THREE.PointLight(0x162d61, 100, 500, 1.7);
 lightning.position.set(200, 45, 100); //just a little in front the cloud
+lightning.name = 'lightning';
 scene.add(lightning);
 
 /**
@@ -385,7 +402,7 @@ rainLoader.load('sounds/rain.mp3', function (buffer) {
 
 const thunder1Sound = new Audio('/sounds/thunder-1.mp3');
 const playThunder1Sound = () => {
-  if (!isMuted) {
+  if (!isMuted && debugObject.thunder) {
     thunder1Sound.volume = 0.2;
     thunder1Sound.play();
   }
@@ -393,7 +410,7 @@ const playThunder1Sound = () => {
 
 const thunder2Sound = new Audio('/sounds/thunder-2.mp3');
 const playThunder2Sound = () => {
-  if (!isMuted) {
+  if (!isMuted && debugObject.thunder) {
     thunder2Sound.volume = 0.2;
     thunder2Sound.play();
   }
@@ -401,7 +418,7 @@ const playThunder2Sound = () => {
 
 const thunder3Sound = new Audio('/sounds/thunder-3.mp3');
 const playThunder3Sound = () => {
-  if (!isMuted) {
+  if (!isMuted && debugObject.thunder) {
     thunder3Sound.volume = 0.2;
     thunder3Sound.play();
   }
