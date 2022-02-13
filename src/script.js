@@ -12,6 +12,12 @@ import waterFragmentShader from './shaders/water/fragment.glsl';
 const gui = new dat.GUI({ width: 340 });
 const debugObject = {};
 
+debugObject.rainFrequency = 4000;
+
+// wave color
+debugObject.depthColor = '#186691';
+debugObject.surfaceColor = '#9bd8ff';
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
 
@@ -43,7 +49,7 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Rain
-const innerRainCount = 3000;
+const innerRainCount = debugObject.rainFrequency * 0.75;
 const innerRainDropsCoordinates = [];
 for (let i = 0; i < innerRainCount; i++) {
   const x = Math.random() * 10 - 5;
@@ -71,7 +77,7 @@ const innerRain = new THREE.Points(innerRainGeo, innerRainMaterial);
 const innerRainDrops = innerRainGeo.getAttribute('position');
 scene.add(innerRain);
 
-const outerRainCount = 1000;
+const outerRainCount = debugObject.rainFrequency * 0.25;
 const outerRainDropsCoordinates = [];
 for (let i = 0; i < outerRainCount; i++) {
   const x = Math.random() * 100 - 50;
@@ -108,10 +114,6 @@ scene.fog = fog;
  */
 // Geometry
 const waterGeometry = new THREE.PlaneGeometry(10, 10, 512, 512);
-
-// Color
-debugObject.depthColor = '#186691';
-debugObject.surfaceColor = '#9bd8ff';
 
 // Material
 const waterMaterial = new THREE.ShaderMaterial({
@@ -256,6 +258,15 @@ gui
   .max(10)
   .step(0.001)
   .name('uColorMultiplier');
+
+gui
+  .add(debugObject, 'rainFrequency')
+  .min(0)
+  .max(10000)
+  .step(1000)
+  .onChange((total) => {
+    debugObject.rainFrequency = total;
+  });
 
 // Mesh
 const water = new THREE.Mesh(waterGeometry, waterMaterial);
