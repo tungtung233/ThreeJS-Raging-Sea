@@ -12,18 +12,19 @@ import waterFragmentShader from './shaders/water/fragment.glsl';
 const gui = new dat.GUI({ width: 340 });
 const debugObject = {};
 
-debugObject.rainFrequency = 4;
+debugObject.backgroundColor = '#11111f';
 
 // wave color
 debugObject.depthColor = '#186691';
 debugObject.surfaceColor = '#9bd8ff';
+
+debugObject.rainFrequency = 4;
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
 
 // Scene
 const scene = new THREE.Scene();
-const backgroundColor = 0x11111f;
 
 // Textures
 let loader = new THREE.TextureLoader();
@@ -117,7 +118,7 @@ const createOuterRain = (count) => {
 createOuterRain(debugObject.rainFrequency)
 
 // Fog
-const fog = new THREE.Fog(backgroundColor, 0.1, 4);
+let fog = new THREE.Fog(debugObject.backgroundColor, 0.1, 4);
 scene.fog = fog;
 
 /**
@@ -185,6 +186,14 @@ const waterMaterial = new THREE.ShaderMaterial({
 });
 
 // Debug
+gui
+  .addColor(debugObject, 'backgroundColor')
+  .onChange(() => {
+    renderer.setClearColor(debugObject.backgroundColor);
+    fog = new THREE.Fog(debugObject.backgroundColor, 0.1, 4);
+    scene.fog = fog;
+  });
+
 gui
   .add(waterMaterial.uniforms.uBigWavesElevation, 'value')
   .min(0)
@@ -346,7 +355,7 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setClearColor(backgroundColor);
+renderer.setClearColor(debugObject.backgroundColor);
 
 // Sounds
 let isMuted = true;
