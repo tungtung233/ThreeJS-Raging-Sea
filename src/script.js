@@ -14,6 +14,7 @@ const debugObject = {};
 
 debugObject.backgroundColor = '#11111f';
 debugObject.cloudTransparency = 0.9;
+debugObject.thunderVolume = debugObject.cloudTransparency * 0.2;
 
 // wave color
 debugObject.depthColor = '#186691';
@@ -195,6 +196,7 @@ gui.addColor(debugObject, 'backgroundColor').onChange(() => {
   scene.fog = fog;
 });
 
+let checkThunder = true;
 gui
   .add(debugObject, 'cloudTransparency')
   .min(0)
@@ -202,6 +204,16 @@ gui
   .step(0.01)
   .onChange(() => {
     cloudMaterial.opacity = debugObject.cloudTransparency;
+    debugObject.thunderVolume = debugObject.cloudTransparency;
+    thunder1Sound.volume = debugObject.thunderVolume;
+    thunder2Sound.volume = debugObject.thunderVolume;
+    thunder3Sound.volume = debugObject.thunderVolume;
+
+    if (debugObject.cloudTransparency === 0) {
+      debugObject.thunder = false;
+    } else if (checkThunder && debugObject.cloudTransparency > 0) {
+      debugObject.thunder = true;
+    }
   });
 
 gui
@@ -289,7 +301,7 @@ gui
   .step(0.001)
   .name('uColorMultiplier');
 
-gui.add(debugObject, 'thunder').onChange((bool) => {
+gui.add(debugObject, 'thunder').listen().onChange((bool) => {
   if (!bool) {
     thunder1Sound.pause();
     thunder1Sound.currentTime = 0;
@@ -302,6 +314,8 @@ gui.add(debugObject, 'thunder').onChange((bool) => {
   } else {
     scene.add(lightning);
   }
+
+  checkThunder = bool;
 });
 
 gui
@@ -410,7 +424,7 @@ const playRainSound = () => {
 
       rainLightSound.volume = 1.0;
       rainLightSound.play();
-      
+
       rainMedSound.volume = 0.05;
       rainMedSound.play();
     } else if (debugObject.rainFrequency === 4) {
@@ -433,7 +447,7 @@ const playRainSound = () => {
       rainMedSound.play();
     } else if (debugObject.rainFrequency === 7) {
       rainHeavySound.pause();
-      
+
       rainMedSound.volume = 0.6;
       rainMedSound.play();
 
@@ -462,7 +476,7 @@ const playRainSound = () => {
 const thunder1Sound = new Audio('/sounds/thunder-1.mp3');
 const playThunder1Sound = () => {
   if (!isMuted && debugObject.thunder) {
-    thunder1Sound.volume = 0.2;
+    thunder1Sound.volume = debugObject.thunderVolume;
     thunder1Sound.play();
   }
 };
@@ -470,7 +484,7 @@ const playThunder1Sound = () => {
 const thunder2Sound = new Audio('/sounds/thunder-2.mp3');
 const playThunder2Sound = () => {
   if (!isMuted && debugObject.thunder) {
-    thunder2Sound.volume = 0.2;
+    thunder2Sound.volume = debugObject.thunderVolume;
     thunder2Sound.play();
   }
 };
@@ -478,7 +492,7 @@ const playThunder2Sound = () => {
 const thunder3Sound = new Audio('/sounds/thunder-3.mp3');
 const playThunder3Sound = () => {
   if (!isMuted && debugObject.thunder) {
-    thunder3Sound.volume = 0.2;
+    thunder3Sound.volume = debugObject.thunderVolume;
     thunder3Sound.play();
   }
 };
