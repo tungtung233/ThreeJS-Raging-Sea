@@ -413,58 +413,69 @@ const playRainSound = () => {
 
       rainLightSound.volume = 0.8;
       rainLightSound.play();
+      rainLightSound.loop = true;
     } else if (debugObject.rainFrequency === 2) {
       rainMedSound.pause();
       rainHeavySound.pause();
 
       rainLightSound.volume = 0.9;
       rainLightSound.play();
+      rainLightSound.loop = true;
     } else if (debugObject.rainFrequency === 3) {
       rainHeavySound.pause();
 
       rainLightSound.volume = 1.0;
       rainLightSound.play();
+      rainLightSound.loop = true;
 
       rainMedSound.volume = 0.05;
       rainMedSound.play();
+      rainMedSound.loop = true;
     } else if (debugObject.rainFrequency === 4) {
       rainLightSound.pause();
       rainHeavySound.pause();
 
       rainMedSound.volume = 0.2;
       rainMedSound.play();
+      rainMedSound.loop = true;
     } else if (debugObject.rainFrequency === 5) {
       rainLightSound.pause();
       rainHeavySound.pause();
 
       rainMedSound.volume = 0.4;
       rainMedSound.play();
+      rainMedSound.loop = true;
     } else if (debugObject.rainFrequency === 6) {
       rainLightSound.pause();
       rainHeavySound.pause();
 
       rainMedSound.volume = 0.6;
       rainMedSound.play();
+      rainMedSound.loop = true;
     } else if (debugObject.rainFrequency === 7) {
       rainHeavySound.pause();
 
       rainMedSound.volume = 0.6;
       rainMedSound.play();
+      rainMedSound.loop = true;
 
       rainHeavySound.volume = 0.1;
       rainHeavySound.play();
+      rainHeavySound.loop = true;
     } else if (debugObject.rainFrequency === 8) {
       rainMedSound.pause();
       rainHeavySound.pause();
 
       rainHeavySound.volume = 0.2;
       rainHeavySound.play();
+      rainHeavySound.loop = true;
     } else if (debugObject.rainFrequency === 9) {
       rainMedSound.pause();
       rainHeavySound.pause();
 
       rainHeavySound.volume = 0.3;
       rainHeavySound.play();
+      rainHeavySound.loop = true;
     }
   } else {
     rainLightSound.pause();
