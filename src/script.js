@@ -301,22 +301,25 @@ gui
   .step(0.001)
   .name('uColorMultiplier');
 
-gui.add(debugObject, 'thunder').listen().onChange((bool) => {
-  if (!bool) {
-    thunder1Sound.pause();
-    thunder1Sound.currentTime = 0;
-    thunder2Sound.pause();
-    thunder2Sound.currentTime = 0;
-    thunder3Sound.pause();
-    thunder3Sound.currentTime = 0;
+gui
+  .add(debugObject, 'thunder')
+  .listen()
+  .onChange((bool) => {
+    if (!bool) {
+      thunder1Sound.pause();
+      thunder1Sound.currentTime = 0;
+      thunder2Sound.pause();
+      thunder2Sound.currentTime = 0;
+      thunder3Sound.pause();
+      thunder3Sound.currentTime = 0;
 
-    scene.remove(scene.getObjectByName('lightning'));
-  } else {
-    scene.add(lightning);
-  }
+      scene.remove(scene.getObjectByName('lightning'));
+    } else {
+      scene.add(lightning);
+    }
 
-  checkThunder = bool;
-});
+    checkThunder = bool;
+  });
 
 gui
   .add(debugObject, 'rainFrequency')
@@ -466,7 +469,7 @@ const playRainSound = () => {
       rainMedSound.pause();
       rainHeavySound.pause();
 
-      rainHeavySound.volume = 0.2;
+      rainHeavySound.volume = 0.25;
       rainHeavySound.play();
       rainHeavySound.loop = true;
     } else if (debugObject.rainFrequency === 9) {
