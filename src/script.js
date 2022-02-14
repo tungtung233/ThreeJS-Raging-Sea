@@ -307,12 +307,13 @@ gui.add(debugObject, 'thunder').onChange((bool) => {
 gui
   .add(debugObject, 'rainFrequency')
   .min(0)
-  .max(8)
+  .max(9)
   .step(1)
   .onChange((total) => {
     debugObject.rainFrequency = total;
     createInnerRain(debugObject.rainFrequency);
     createOuterRain(debugObject.rainFrequency);
+    playRainSound();
   });
 
 // Mesh
@@ -386,19 +387,77 @@ renderer.setClearColor(debugObject.backgroundColor);
 // Sounds
 let isMuted = true;
 
-// create an AudioListener and add it to the camera
-const listener = new THREE.AudioListener();
-camera.add(listener);
+const rainLightSound = new Audio('/sounds/rain-light.mp3');
+const rainMedSound = new Audio('/sounds/rain-med.mp3');
+const rainHeavySound = new Audio('/sounds/rain-heavy.mp3');
 
-// create a global audio source
-const sound = new THREE.Audio(listener);
-const rainLoader = new THREE.AudioLoader();
+const playRainSound = () => {
+  if (!isMuted && debugObject.rainFrequency > 0) {
+    if (debugObject.rainFrequency === 1) {
+      rainMedSound.pause();
+      rainHeavySound.pause();
 
-rainLoader.load('sounds/rain.mp3', function (buffer) {
-  sound.setBuffer(buffer);
-  sound.setLoop(true);
-  sound.setVolume(0.1);
-});
+      rainLightSound.volume = 0.8;
+      rainLightSound.play();
+    } else if (debugObject.rainFrequency === 2) {
+      rainMedSound.pause();
+      rainHeavySound.pause();
+
+      rainLightSound.volume = 0.9;
+      rainLightSound.play();
+    } else if (debugObject.rainFrequency === 3) {
+      rainHeavySound.pause();
+
+      rainLightSound.volume = 1.0;
+      rainLightSound.play();
+      
+      rainMedSound.volume = 0.05;
+      rainMedSound.play();
+    } else if (debugObject.rainFrequency === 4) {
+      rainLightSound.pause();
+      rainHeavySound.pause();
+
+      rainMedSound.volume = 0.2;
+      rainMedSound.play();
+    } else if (debugObject.rainFrequency === 5) {
+      rainLightSound.pause();
+      rainHeavySound.pause();
+
+      rainMedSound.volume = 0.4;
+      rainMedSound.play();
+    } else if (debugObject.rainFrequency === 6) {
+      rainLightSound.pause();
+      rainHeavySound.pause();
+
+      rainMedSound.volume = 0.6;
+      rainMedSound.play();
+    } else if (debugObject.rainFrequency === 7) {
+      rainHeavySound.pause();
+      
+      rainMedSound.volume = 0.6;
+      rainMedSound.play();
+
+      rainHeavySound.volume = 0.1;
+      rainHeavySound.play();
+    } else if (debugObject.rainFrequency === 8) {
+      rainMedSound.pause();
+      rainHeavySound.pause();
+
+      rainHeavySound.volume = 0.2;
+      rainHeavySound.play();
+    } else if (debugObject.rainFrequency === 9) {
+      rainMedSound.pause();
+      rainHeavySound.pause();
+
+      rainHeavySound.volume = 0.3;
+      rainHeavySound.play();
+    }
+  } else {
+    rainLightSound.pause();
+    rainMedSound.pause();
+    rainHeavySound.pause();
+  }
+};
 
 const thunder1Sound = new Audio('/sounds/thunder-1.mp3');
 const playThunder1Sound = () => {
@@ -425,12 +484,13 @@ const playThunder3Sound = () => {
 };
 
 const clickSoundIcon = () => {
-  if (isMuted) {
+  isMuted = !isMuted;
+  if (!isMuted) {
     document.getElementById('soundIcon').src = '/unmuted.png';
-    sound.play();
+    playRainSound();
   } else {
     document.getElementById('soundIcon').src = '/muted.png';
-    sound.pause();
+    playRainSound();
     thunder1Sound.pause();
     thunder1Sound.currentTime = 0;
     thunder2Sound.pause();
@@ -438,7 +498,6 @@ const clickSoundIcon = () => {
     thunder3Sound.pause();
     thunder3Sound.currentTime = 0;
   }
-  isMuted = !isMuted;
 };
 
 const soundIcon = document
