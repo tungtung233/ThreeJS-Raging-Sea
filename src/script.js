@@ -14,13 +14,13 @@ const debugObject = {};
 
 debugObject.backgroundColor = '#11111f';
 debugObject.cloudTransparency = 0.9;
+debugObject.thunder = true;
 debugObject.thunderVolume = debugObject.cloudTransparency * 0.2;
 
 // wave color
 debugObject.depthColor = '#186691';
 debugObject.surfaceColor = '#9bd8ff';
 
-debugObject.thunder = true;
 debugObject.rainFrequency = 4;
 
 // Canvas
@@ -217,6 +217,26 @@ gui
   });
 
 gui
+  .add(debugObject, 'thunder')
+  .listen()
+  .onChange((bool) => {
+    if (!bool) {
+      thunder1Sound.pause();
+      thunder1Sound.currentTime = 0;
+      thunder2Sound.pause();
+      thunder2Sound.currentTime = 0;
+      thunder3Sound.pause();
+      thunder3Sound.currentTime = 0;
+
+      scene.remove(scene.getObjectByName('lightning'));
+    } else {
+      scene.add(lightning);
+    }
+
+    checkThunder = bool;
+  });
+
+gui
   .add(waterMaterial.uniforms.uBigWavesElevation, 'value')
   .min(0)
   .max(1)
@@ -300,26 +320,6 @@ gui
   .max(10)
   .step(0.001)
   .name('uColorMultiplier');
-
-gui
-  .add(debugObject, 'thunder')
-  .listen()
-  .onChange((bool) => {
-    if (!bool) {
-      thunder1Sound.pause();
-      thunder1Sound.currentTime = 0;
-      thunder2Sound.pause();
-      thunder2Sound.currentTime = 0;
-      thunder3Sound.pause();
-      thunder3Sound.currentTime = 0;
-
-      scene.remove(scene.getObjectByName('lightning'));
-    } else {
-      scene.add(lightning);
-    }
-
-    checkThunder = bool;
-  });
 
 gui
   .add(debugObject, 'rainFrequency')
