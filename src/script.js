@@ -21,6 +21,7 @@ debugObject.thunderVolume = debugObject.cloudTransparency * 0.2;
 debugObject.depthColor = '#186691';
 debugObject.surfaceColor = '#9bd8ff';
 
+debugObject.rainColor = '#69768a';
 debugObject.rainFrequency = 4;
 
 // Canvas
@@ -75,7 +76,7 @@ const createInnerRain = (count) => {
     size: 1.75,
     transparent: true,
     fog: false,
-    color: '#69768a',
+    color: debugObject.rainColor,
     sizeAttenuation: false,
   });
 
@@ -109,7 +110,7 @@ const createOuterRain = (count) => {
     size: 1.25,
     transparent: true,
     fog: false,
-    color: '#69768a',
+    color: debugObject.rainColor,
     sizeAttenuation: false,
   });
 
@@ -320,6 +321,11 @@ gui
   .max(10)
   .step(0.001)
   .name('uColorMultiplier');
+
+gui.addColor(debugObject, 'rainColor').onChange(() => {
+  createInnerRain(debugObject.rainFrequency);
+  createOuterRain(debugObject.rainFrequency);
+});
 
 gui
   .add(debugObject, 'rainFrequency')
