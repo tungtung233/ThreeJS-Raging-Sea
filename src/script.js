@@ -238,18 +238,32 @@ gui
   });
 
 gui
+  .addColor(debugObject, 'depthColor')
+  .name('wavesDepthColor')
+  .onChange(() => {
+    waterMaterial.uniforms.uDepthColor.value.set(debugObject.depthColor);
+  });
+
+gui
+  .addColor(debugObject, 'surfaceColor')
+  .name('wavesSurfaceColor')
+  .onChange(() => {
+    waterMaterial.uniforms.uSurfaceColor.value.set(debugObject.surfaceColor);
+  });
+
+gui
   .add(waterMaterial.uniforms.uBigWavesElevation, 'value')
   .min(0)
   .max(1)
   .step(0.001)
-  .name('uBigWavesElevation');
+  .name('bigWavesElevation');
 
 gui
   .add(waterMaterial.uniforms.uBigWavesFrequency.value, 'x')
   .min(0)
   .max(10)
   .step(0.001)
-  .name('uBigWavesFrequencyX');
+  .name('bigWavesFrequencyX');
 
 gui
   //this is actually manipulating the Z axis, but since vec2 only has (X,Y), this is the Y value
@@ -257,70 +271,56 @@ gui
   .min(0)
   .max(10)
   .step(0.001)
-  .name('uBigWavesFrequencyY');
+  .name('bigWavesFrequencyY');
 
 gui
   .add(waterMaterial.uniforms.uBigWavesSpeed, 'value')
   .min(0)
   .max(4)
   .step(0.001)
-  .name('uBigWavesSpeed');
+  .name('bigWavesSpeed');
 
 gui
   .add(waterMaterial.uniforms.uSmallWavesElevation, 'value')
   .min(0)
   .max(1)
   .step(0.001)
-  .name('uSmallWavesElevation');
+  .name('smallWavesElevation');
 
 gui
   .add(waterMaterial.uniforms.uSmallWavesFrequency, 'value')
   .min(0)
   .max(30)
   .step(0.001)
-  .name('uSmallWavesFrequency');
+  .name('smallWavesFrequency');
 
 gui
   .add(waterMaterial.uniforms.uSmallWavesSpeed, 'value')
   .min(0)
   .max(4)
   .step(0.001)
-  .name('uSmallWavesSpeed');
+  .name('smallWavesSpeed');
 
 gui
   .add(waterMaterial.uniforms.uSmallWavesIterations, 'value')
   .min(0)
   .max(4)
   .step(1)
-  .name('uSmallWavesIterations');
-
-gui
-  .addColor(debugObject, 'depthColor')
-  .name('depthColor')
-  .onChange(() => {
-    waterMaterial.uniforms.uDepthColor.value.set(debugObject.depthColor);
-  });
-
-gui
-  .addColor(debugObject, 'surfaceColor')
-  .name('surfaceColor')
-  .onChange(() => {
-    waterMaterial.uniforms.uSurfaceColor.value.set(debugObject.surfaceColor);
-  });
+  .name('smallWavesIterations');
 
 gui
   .add(waterMaterial.uniforms.uColorOffset, 'value')
   .min(0)
   .max(1)
   .step(0.001)
-  .name('uColorOffset');
+  .name('wavesColorOffset');
 
 gui
   .add(waterMaterial.uniforms.uColorMultiplier, 'value')
   .min(0)
   .max(10)
   .step(0.001)
-  .name('uColorMultiplier');
+  .name('wavesColorMultiplier');
 
 gui.addColor(debugObject, 'rainColor').onChange(() => {
   createInnerRain(debugObject.rainFrequency);
