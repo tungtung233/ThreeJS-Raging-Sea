@@ -3,6 +3,13 @@
 
 This project was completed with the goal of experimenting and learning how to use custom shaders in ThreeJS.
 
+## Screenshots
+
+
+https://user-images.githubusercontent.com/80285812/154200635-1a7a6bbd-89c1-4a63-8f7d-005c7cdb648f.mp4
+
+
+
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
 Run this followed commands:
