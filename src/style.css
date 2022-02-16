@@ -23,6 +23,14 @@ body {
   width: 3vmax;
 }
 
-#soundIcon:hover {
-  cursor: pointer
+#codeIcon {
+  position: absolute;
+  bottom: 2vw;
+  right: 2vw;
+  height: 3vmax;
+  width: 3vmax;
+}
+
+.button:hover {
+  cursor: pointer;
 }
