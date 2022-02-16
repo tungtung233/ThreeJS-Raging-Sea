@@ -1,4 +1,7 @@
-# Three.js Journey
+# Stormy Sea
+[Deployed App](https://stormy-sea.netlify.app/)
+
+This project was completed with the goal of experimenting and learning how to use custom shaders in ThreeJS.
 
 ## Setup
 Download [Node.js](https://nodejs.org/en/download/).
