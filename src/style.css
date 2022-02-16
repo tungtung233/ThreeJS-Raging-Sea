@@ -22,3 +22,7 @@ body {
   height: 3vmax;
   width: 3vmax;
 }
+
+#soundIcon:hover {
+  cursor: pointer
+}
