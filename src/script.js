@@ -55,10 +55,21 @@ loader.load('clouds.png', function (texture) {
 });
 
 // Rain
-let innerRainDropsCoordinates, innerRain, innerRainDrops;
+let innerRain = null;
+let innerRainDrops = null;
+let innerRainGeo = null;
+let innerRainMaterial = null;
+
 const createInnerRain = (count) => {
+  // remove old innerRain points after gui manipulation
+  if (innerRain !== null) {
+    innerRainGeo.dispose();
+    innerRainMaterial.dispose();
+    scene.remove(innerRain);
+  }
+
   const innerRainCount = count * 1000 * 0.75;
-  innerRainDropsCoordinates = [];
+  let innerRainDropsCoordinates = [];
   for (let i = 0; i < innerRainCount; i++) {
     const x = Math.random() * 10 - 5;
     const y = Math.random() * 50 - 25;
@@ -66,13 +77,14 @@ const createInnerRain = (count) => {
 
     innerRainDropsCoordinates.push(x, y, z);
   }
-  const innerRainGeo = new THREE.BufferGeometry();
+
+  innerRainGeo = new THREE.BufferGeometry();
   innerRainGeo.setAttribute(
     'position',
     new THREE.Float32BufferAttribute(innerRainDropsCoordinates, 3)
   );
 
-  const innerRainMaterial = new THREE.PointsMaterial({
+  innerRainMaterial = new THREE.PointsMaterial({
     size: 1.75,
     transparent: true,
     fog: false,
@@ -81,17 +93,26 @@ const createInnerRain = (count) => {
   });
 
   innerRain = new THREE.Points(innerRainGeo, innerRainMaterial);
-  innerRain.name = 'innerRain';
   innerRainDrops = innerRainGeo.getAttribute('position');
-  scene.remove(scene.getObjectByName('innerRain'));
   scene.add(innerRain);
 };
 createInnerRain(debugObject.rainFrequency);
 
-let outerRainDropsCoordinates, outerRain, outerRainDrops;
+let outerRain = null;
+let outerRainDrops = null;
+let outerRainGeo = null;
+let outerRainMaterial = null;
+
 const createOuterRain = (count) => {
+  // remove old outerRain points after gui manipulation
+  if (outerRain !== null) {
+    outerRainGeo.dispose();
+    outerRainMaterial.dispose();
+    scene.remove(outerRain)
+  }
+
   const outerRainCount = count * 1000 * 0.25;
-  outerRainDropsCoordinates = [];
+  let outerRainDropsCoordinates = [];
   for (let i = 0; i < outerRainCount; i++) {
     const x = Math.random() * 100 - 50;
     const y = Math.random() * 50 - 25;
@@ -100,13 +121,13 @@ const createOuterRain = (count) => {
     outerRainDropsCoordinates.push(x, y, z);
   }
 
-  const outerRainGeo = new THREE.BufferGeometry();
+  outerRainGeo = new THREE.BufferGeometry();
   outerRainGeo.setAttribute(
     'position',
     new THREE.Float32BufferAttribute(outerRainDropsCoordinates, 3)
   );
 
-  const outerRainMaterial = new THREE.PointsMaterial({
+  outerRainMaterial = new THREE.PointsMaterial({
     size: 1.25,
     transparent: true,
     fog: false,
@@ -115,9 +136,7 @@ const createOuterRain = (count) => {
   });
 
   outerRain = new THREE.Points(outerRainGeo, outerRainMaterial);
-  outerRain.name = 'outerRain';
   outerRainDrops = outerRainGeo.getAttribute('position');
-  scene.remove(scene.getObjectByName('outerRain'));
   scene.add(outerRain);
 };
 createOuterRain(debugObject.rainFrequency);
